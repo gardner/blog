@@ -1,3 +1,7 @@
 [submodule "themes/hugo-zen"]
 	path = themes/hugo-zen
 	url = https://github.com/rakuishi/hugo-zen.git
+[submodule "public"]
+	path = public
+	url = git@github.com:gardner/gardner.github.io.git
+	branch = master
