@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    HUGO_VERSION: "0.48"
+    HUGO_SHA256: "1d26dab6445fc40aa23ecd8d49cd6fdbe8b06d722907bc97b3d32e385555b2df"
+            
+phases:
+  install:
+    commands:
+      -       
+      - curl -Ls https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz -o /tmp/hugo.tar.gz
+      - echo "${HUGO_SHA256} /tmp/hugo.tar.gz" | sha256sum -c -
+      - tar xf /tmp/hugo.tar.gz -C /tmp
+      - mv /tmp/hugo_${HUGO_VERSION}_linux_amd64/hugo_${HUGO_VERSION}_linux_amd64 /usr/bin/hugo
+    finally:
+      - rm -rf /tmp/hugo*
+  pre_build:
+    commands:
+      - command
+      - command
+    finally:
+      - command
+      - command
+  build:
+    commands:
+      - hugo --theme=hugo-zen
+  post_build:
+    commands:
+      - aws s3 sync --delete public s3://bickford.nz --cache-control max-age=3600
